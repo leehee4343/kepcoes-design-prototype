@@ -252,6 +252,51 @@
   .lb-arrow svg{width:20px;height:20px;stroke:#fff;}
   .lb-hint{margin-top:14px; font-family:var(--mono); font-size:11px; color:#8891A6;}
 
+  /* doc-modal */
+  .doc-modal{
+    position:fixed; inset:0; background:rgba(6,12,24,.8);
+    z-index:90; display:none; align-items:center; justify-content:center;
+    padding:40px 20px;
+  }
+  .doc-modal.open{display:flex;}
+  .doc-modal-inner{
+    background:var(--white); border-radius:20px; max-width:800px; width:100%;
+    max-height:85vh; display:flex; flex-direction:column;
+    box-shadow:0 30px 80px rgba(15,46,92,.3);
+    animation:pop .22s ease;
+    overflow:hidden; border:1px solid var(--line);
+  }
+  .doc-modal-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 24px; border-bottom:1px solid var(--line);
+    background:var(--bg);
+  }
+  .doc-modal-header h3{margin:0; font-size:18px; font-weight:700; color:var(--navy);}
+  .doc-modal-close{
+    display:flex; align-items:center; gap:6px;
+    background:var(--white); border:1px solid var(--line);
+    color:var(--ink); font-family:var(--sans); font-weight:600; font-size:12.5px;
+    padding:7px 12px; border-radius:9px; cursor:pointer; transition:.15s;
+  }
+  .doc-modal-close:hover{border-color:var(--blue); color:var(--blue);}
+  .doc-modal-body{
+    padding:24px; overflow-y:auto; font-family:var(--sans); color:var(--ink);
+    line-height:1.6;
+  }
+  .doc-section{margin-bottom:32px;}
+  .doc-section:last-child{margin-bottom:8px;}
+  .doc-section h4{
+    font-size:16px; margin:0 0 4px; color:var(--blue-deep);
+    border-bottom:2px solid var(--blue-tint); padding-bottom:6px; font-weight:700;
+  }
+  .doc-subtitle{font-size:12px; color:var(--blue); font-family:var(--mono); margin-bottom:14px; font-weight:600;}
+  .doc-list{list-style:none; padding:0; margin:0;}
+  .doc-list li{margin-bottom:16px;}
+  .doc-list li strong{display:block; font-size:14px; color:var(--ink); margin-bottom:4px; font-weight:600;}
+  .doc-list li strong::before{content:'· '; color:var(--orange); font-weight:bold;}
+  .doc-list li p{margin:0; font-size:13px; color:var(--ink-soft); text-align:justify;}
+  .doc-list li code{font-family:var(--mono); font-size:11.5px; background:var(--bg); padding:2px 6px; border-radius:4px; border:1px solid var(--line); color:var(--blue-deep);}
+
   @media (max-width:860px){
     .hero h1{font-size:30px;}
     .concept{grid-template-columns:1fr;}
@@ -330,6 +375,13 @@
     </div>
   </section>
 
+  <div style="text-align: center; margin-top: -30px; margin-bottom: 50px;">
+    <button class="iconbtn" id="openDocBtn" style="padding: 10px 20px; font-size: 14px; border-radius: 100px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(15,46,92,0.1);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      정의서 상세 보기
+    </button>
+  </div>
+
   <section class="viewer-wrap">
     <div class="viewer-head">
       <div>
@@ -405,6 +457,91 @@
         </div>
       </div>
       <div class="lb-hint">← → 방향키로 이동 · ESC 또는 닫기 버튼으로 돌아가기</div>
+    </div>
+  </div>
+
+  <!-- 정의서 상세 모달 -->
+  <div class="doc-modal" id="docModal">
+    <div class="doc-modal-inner">
+      <div class="doc-modal-header">
+        <h3>디자인 시안 프로토타입 정의서</h3>
+        <button class="doc-modal-close" id="closeDocBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          닫기
+        </button>
+      </div>
+      <div class="doc-modal-body">
+        
+        <div class="doc-section">
+          <h4>1. 디자인 컨셉</h4>
+          <div class="doc-subtitle">직관성과 신뢰성을 극대화한 사용자 중심의 전개</div>
+          <ul class="doc-list">
+            <li>
+              <strong>데이터 시각화 중심의 레이아웃</strong>
+              <p>복잡한 수치와 통계 자료를 사용자가 한눈에 파악할 수 있도록 그리드 시스템 기반의 깔끔한 카드 레이아웃을 적용했습니다.</p>
+            </li>
+            <li>
+              <strong>높은 가독성과 스캐너빌리티(Scannability)</strong>
+              <p>넓은 여백(White Space)을 적극적으로 활용하여 시각적 피로도를 낮추고, 텍스트 정보와 차트(파이 차트, 바 차트) 간의 균형을 맞춰 정보의 인지 속도를 높였습니다.</p>
+            </li>
+            <li>
+              <strong>현대적이고 전문적인 무드</strong>
+              <p>불필요한 장식적 요소를 배제하고 플랫하고 모던한 UI 스타일을 채택하여, 관리 시스템에 걸맞은 전문성과 신뢰감을 전달하고자 했습니다.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="doc-section">
+          <h4>2. 컬러 시스템</h4>
+          <div class="doc-subtitle">신뢰감을 주는 블루와 깨끗한 화이트의 조화, 직관적인 포인트 컬러 활용</div>
+          <ul class="doc-list">
+            <li>
+              <strong>베이스 컬러 (화이트 배경)</strong>
+              <p>전체 배경을 깨끗한 화이트 톤으로 설정하여 밝고 쾌적한 화면을 연출하고, 콘텐츠 자체에 시선이 가장 먼저 머무를 수 있도록 베이스 역할을 부여했습니다.</p>
+            </li>
+            <li>
+              <strong>포인트 컬러 (블루 계열)</strong>
+              <p>포인트 컬러는 기업의 상징성과 전문성, 스마트한 이미지를 대변하는 블루 계열을 사용하여 시스템의 일관된 톤을 유지합니다.</p>
+            </li>
+            <li>
+              <strong>서브 컬러 (오렌지, 그린, 옐로우)</strong>
+              <p>오렌지 계열의 서브 컬러를 중심으로 그린과 옐로우 컬러를 전략적으로 배치하여, 전체적인 블루 톤 데이터의 다양성을 명확하게 구분할 수 있도록 설계했습니다. 계약 유형 비중이나 진행 상태 등 서로 다른 속성의 데이터를 시각적으로 분리하여 인지 오류를 줄이는 역할을 합니다.</p>
+            </li>
+            <li>
+              <strong>보더 및 가독성 대비 (그레이 & 차콜)</strong>
+              <p>전체 영역 및 카드 영역의 경계선이나 배경에는 부드러운 그레이 톤을 적용하고, 텍스트에는 명도 대비가 명확한 차콜(어두운 그레이) 컬러를 사용하여 눈의 부담을 최소화하면서 가독성을 최대로 높였습니다.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="doc-section">
+          <h4>3. 레이아웃 구성</h4>
+          <div class="doc-subtitle">사용성 및 확장성을 고려한 UI/UX 설계</div>
+          <ul class="doc-list">
+            <li>
+              <strong>상단 (Header)</strong>
+              <p>시스템명 및 현재 로그인한 사용자 정보를 제공하며, 권한그룹 변경 제어 장치를 배치하여 사용자가 임의로 권한 역할군을 오가며 효율적으로 기능을 관리할 수 있도록 설계했습니다.</p>
+            </li>
+            <li>
+              <strong>왼쪽 메뉴 (LNB)</strong>
+              <p>좌측 사이드바 구조로 1Depth와 2Depth 아코디언 메뉴를 설계하였으며, 화면을 더 넓게 쓸 수 있도록 숨김 가능한 접기/펴기 기능 및 하단부 유관 시스템 바로가기 기능을 제공합니다.</p>
+            </li>
+            <li>
+              <strong>브레드크럼 (Breadcrumb)</strong>
+              <p>현재 화면 위치(예: <code>공통관리(설정) &gt; 관리자 관리</code>)를 쉽게 인지할 수 있는 경로 표시 영역을 체계적으로 표기했습니다.</p>
+            </li>
+            <li>
+              <strong>콘텐츠 영역 (Contents)</strong>
+              <p>일관된 여백(Padding) 정책을 통해 그리드, 폼, 카드가 촘촘하면서도 짜임새 있게 묶이도록 배치했으며, 논리적 구조에 따른 오브젝트 레이아웃과 실제 업무 시나리오 기반 설계를 충실히 반영했습니다.</p>
+            </li>
+            <li>
+              <strong>인터랙션 적용 계획</strong>
+              <p>컴포넌트 단위의 디테일과 트랜지션을 고려하여, 모든 버튼과 인터랙티브 요소에 부드러운 호버 상태 변화 효과를 적용할 계획입니다.</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -559,6 +696,24 @@ attachSwipe(lightbox);
 
 buildThumbs();
 render();
+
+// doc-modal events
+const docModal = document.getElementById('docModal');
+const openDocBtn = document.getElementById('openDocBtn');
+const closeDocBtn = document.getElementById('closeDocBtn');
+
+function openDocModal(){
+  docModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDocModal(){
+  docModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+openDocBtn.addEventListener('click', openDocModal);
+closeDocBtn.addEventListener('click', closeDocModal);
+docModal.addEventListener('click', (e)=>{ if(e.target === docModal) closeDocModal(); });
 </script>
 </body>
 </html>
